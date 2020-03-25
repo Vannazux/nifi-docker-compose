@@ -3,11 +3,17 @@
 Each of these provides two NiFi instances, one of which is meant to serve as a secondary instance to facilitate SiteToSite work.
 
 * docker-compose-nifi-with-cockroachdb.yml - 3 node CockroachDB cluster
-* docker-compose-es-mongo.yml - ElasticSearch and MongoDB.
+* docker-compose-elasticsearch.yml - ElasticSearch.
 * docker-compose-postgres.yml - PostgreSQL.
 * docker-compose-pulsar-heron.yml - [Streaml.io sandbox](https://streaml.io/docs/getting-started) that provides Pulsar, Apache BookKeeper and Twitter Heron.
 * docker-compose-sentinel.yml - Redis Sentinel all-in-one (Redis sentinel, master and slave).
 * docker-compose-solrcloud.yml - Two node SolrCloud cluster w/ ZooKeeper.
+* docker-compose-ignite.yml - Apache Ignite support.
+* docker-compose-mongo-ssl-shard.yml - MongoDB with SSL authentication and sharding.
+* docker-compose-mongo-ssl.yml - MongoDB with SSL and simple replication.
+* docker-compose-registry-secure.yml - A secure NiFi Registry example.
+* docker-compose-registry-simple.yml -A simple NiFi Registry example without security enabled.
+* docker-compose-janusgraph.yml - A configuration that connects NiFi 1.10.0 with JanusGraph. Requires a custom build of Apache NiFi 1.10.
 
 ## Local Setup
 

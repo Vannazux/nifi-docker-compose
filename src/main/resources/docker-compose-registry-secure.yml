@@ -10,7 +10,7 @@ services:
       - /opt/odp/ldap:/opt/odp/ldap:ro
   nifi:
     hostname: demo.nifi
-    image: apache/nifi:latest
+    image: apache/nifi:${nifi.version}
     container_name: nifi
     environment:
       - AUTH=ldap
@@ -39,10 +39,11 @@ services:
     volumes:
       - /tmp/nifi:/opt/nifi_in
       - ./for_registry/demo.nifi:/opt/demo.nifi:ro
+      - ./extensions:/opt/nifi/nifi-current/extensions
   prov.nifi:
     hostname: prov.nifi
     container_name: prov.nifi
-    image: "apache/nifi:latest"
+    image: apache/nifi:${nifi.version}
     environment:
       - NIFI_WEB_HTTP_HOST=prov.nifi
       - NIFI_WEB_HTTP_PORT=9999
@@ -72,7 +73,7 @@ services:
       - ./for_registry/prov.nifi/:/opt/prov.nifi:ro
   registry.nifi:
     hostname: registry.nifi
-    image: apache/nifi-registry:latest
+    image: apache/nifi-registry:${nifi.registry.version}
     container_name: registry.nifi
     links:
       - ldap

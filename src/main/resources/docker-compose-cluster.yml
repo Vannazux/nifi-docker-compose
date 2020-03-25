@@ -9,12 +9,11 @@ services:
     environment:
       - ALLOW_ANONYMOUS_LOGIN=yes
   node1.nifi:
-    image: apache/nifi:1.8.0-dockermaven
+    image: apache/nifi:${nifi.version}
     container_name: node1.nifi
     hostname: node1.nifi
     links:
       - zookeeper
-      - mongo_test
     ports:
       - 8080:8080
     environment:
@@ -24,14 +23,15 @@ services:
       - NIFI_CLUSTER_NODE_PROTOCOL_PORT=8082
       - NIFI_ZK_CONNECT_STRING=zookeeper:2181
       - NIFI_ELECTION_MAX_WAIT=1 min
+    volumes:
+      - ./extensions:/opt/nifi/nifi-current/extensions
   node2.nifi:
-    image: apache/nifi:1.8.0-dockermaven
+    image: apache/nifi:${nifi.version}
     container_name: node2.nifi
     hostname: node2.nifi
     links:
       - zookeeper
       - node1.nifi
-      - mongo_test
     ports:
       - 8888:8080
     environment:
@@ -41,8 +41,10 @@ services:
       - NIFI_CLUSTER_NODE_PROTOCOL_PORT=8082
       - NIFI_ZK_CONNECT_STRING=zookeeper:2181
       - NIFI_ELECTION_MAX_WAIT=1 min
+    volumes:
+      - ./extensions:/opt/nifi/nifi-current/extensions
   node3.nifi:
-    image: apache/nifi:1.8.0-dockermaven
+    image: apache/nifi:${nifi.version}
     container_name: node3.nifi
     hostname: node3.nifi
     ports:
@@ -51,7 +53,6 @@ services:
       - zookeeper
       - node1.nifi
       - node2.nifi
-      - mongo_test
     environment:
       - NIFI_WEB_HTTP_HOST=node3.nifi
       - NIFI_WEB_HTTP_PORT=8080
@@ -59,7 +60,5 @@ services:
       - NIFI_CLUSTER_NODE_PROTOCOL_PORT=8082
       - NIFI_ZK_CONNECT_STRING=zookeeper:2181
       - NIFI_ELECTION_MAX_WAIT=1 min
-  mongo_test:
-    image: mongo:latest
-    container_name: mongo_test
-
+    volumes:
+      - ./extensions:/opt/nifi/nifi-current/extensions
